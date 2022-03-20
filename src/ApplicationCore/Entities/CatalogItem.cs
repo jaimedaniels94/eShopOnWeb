@@ -7,6 +7,7 @@ namespace Microsoft.eShopWeb.ApplicationCore.Entities;
 public class CatalogItem : BaseEntity, IAggregateRoot
 {
     public string Name { get; private set; }
+    public string Subtitle { get; private set; } 
     public string Description { get; private set; }
     public decimal Price { get; private set; }
     public string PictureUri { get; private set; }
@@ -19,6 +20,7 @@ public class CatalogItem : BaseEntity, IAggregateRoot
         int catalogBrandId,
         string description,
         string name,
+        string subtitle,
         decimal price,
         string pictureUri)
     {
@@ -26,17 +28,20 @@ public class CatalogItem : BaseEntity, IAggregateRoot
         CatalogBrandId = catalogBrandId;
         Description = description;
         Name = name;
+        Subtitle = subtitle;
         Price = price;
         PictureUri = pictureUri;
     }
 
-    public void UpdateDetails(string name, string description, decimal price)
+    public void UpdateDetails(string name, string subtitle, string description, decimal price)
     {
         Guard.Against.NullOrEmpty(name, nameof(name));
+        Guard.Against.NullOrEmpty(subtitle, nameof(subtitle));
         Guard.Against.NullOrEmpty(description, nameof(description));
         Guard.Against.NegativeOrZero(price, nameof(price));
 
         Name = name;
+        Subtitle = subtitle;
         Description = description;
         Price = price;
     }
