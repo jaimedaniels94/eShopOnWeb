@@ -49,7 +49,7 @@ public class CreateCatalogItemEndpoint : IEndpoint<IResult, CreateCatalogItemReq
             throw new DuplicateException($"A catalogItem with name {request.Name} already exists");
         }
 
-        var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogBrandId, request.Description, request.Name, request.Price, request.PictureUri);
+        var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogBrandId, request.Description, request.Name, request.Subtitle, request.Price, request.PictureUri);
         newItem = await _itemRepository.AddAsync(newItem);
 
         if (newItem.Id != 0)
@@ -69,6 +69,7 @@ public class CreateCatalogItemEndpoint : IEndpoint<IResult, CreateCatalogItemReq
             CatalogTypeId = newItem.CatalogTypeId,
             Description = newItem.Description,
             Name = newItem.Name,
+            Subtitle = newItem.Subtitle,
             PictureUri = _uriComposer.ComposePicUri(newItem.PictureUri),
             Price = newItem.Price
         };
